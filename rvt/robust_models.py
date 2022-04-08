@@ -115,7 +115,7 @@ class Block(nn.Module):
 class Transformer(nn.Module):
     def __init__(self, base_dim, depth, heads, mlp_ratio,
                  drop_rate=.0, attn_drop_rate=.0, drop_path_prob=None, use_mask=False, masked_block=None,
-                 num_att=0, feature_map_size=0):
+                 feature_map_size=0):
         super(Transformer, self).__init__()
         self.layers = nn.ModuleList([])
         self.depth = depth
@@ -140,7 +140,7 @@ class Transformer(nn.Module):
             self.blocks = nn.ModuleList()
             for i in range(depth):
                 if i < masked_block:
-                    self.blocks.append(Block(
+                    self.blocks.append(attention(
                         dim=embed_dim,
                         num_heads=heads,
                         mlp_ratio=mlp_ratio,
@@ -152,7 +152,7 @@ class Transformer(nn.Module):
                         use_mask=use_mask
                     ))
                 else:
-                    self.blocks.append(Block(
+                    self.blocks.append(attention(
                         dim=embed_dim,
                         num_heads=heads,
                         mlp_ratio=mlp_ratio,
@@ -168,19 +168,6 @@ class Transformer(nn.Module):
                 attention(
                     dim=embed_dim,
                     image_size=feature_map_size,
-                    num_heads=heads,
-                    mlp_ratio=mlp_ratio,
-                    qkv_bias=True,
-                    drop=drop_rate,
-                    attn_drop=attn_drop_rate,
-                    drop_path=drop_path_prob[i],
-                    norm_layer=partial(nn.LayerNorm, eps=1e-6),
-                    use_mask=use_mask,
-                    # no_residual=(i == 1 and depth == 2)
-                )
-                if i < num_att else
-                Block(
-                    dim=embed_dim,
                     num_heads=heads,
                     mlp_ratio=mlp_ratio,
                     qkv_bias=True,
@@ -242,7 +229,7 @@ class conv_embedding(nn.Module):
 class PoolingTransformer(nn.Module):
     def __init__(self, image_size, patch_size, stride, base_dims, depth, heads,
                  mlp_ratio, num_classes=1000, in_chans=3,
-                 attn_drop_rate=.0, drop_rate=.0, drop_path_rate=.0, use_mask=False, masked_block=None, num_att=[0, 0]):
+                 attn_drop_rate=.0, drop_rate=.0, drop_path_rate=.0, use_mask=False, masked_block=None):
         super(PoolingTransformer, self).__init__()
 
         total_block = sum(depth)
@@ -275,13 +262,13 @@ class PoolingTransformer(nn.Module):
                     Transformer(base_dims[stage], depth[stage], heads[stage],
                                 mlp_ratio,
                                 drop_rate, attn_drop_rate, drop_path_prob, use_mask=use_mask, masked_block=masked_block,
-                                num_att=num_att[stage], feature_map_size=image_size // (patch_size * 2** stage))
+                                feature_map_size=image_size // (patch_size * 2** stage))
                 )
             else:
                 self.transformers.append(
                     Transformer(base_dims[stage], depth[stage], heads[stage],
                                 mlp_ratio,
-                                drop_rate, attn_drop_rate, drop_path_prob, num_att=num_att[stage],
+                                drop_rate, attn_drop_rate, drop_path_prob,
                                 feature_map_size=image_size // (patch_size * 2 ** stage))
                 )
 
@@ -363,7 +350,6 @@ def rvt_tiny(pretrained, **kwargs):
         depth=[10, 2],
         heads=[6, 12],
         mlp_ratio=4,
-        num_att=[10, 2],
         **kwargs
     )
     model.default_cfg = _cfg()
