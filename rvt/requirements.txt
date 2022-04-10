@@ -1,4 +1,4 @@
-timm==0.3.2
+timm
 einops
 kornia
 tqdm
