@@ -5,3 +5,4 @@ tqdm
 opencv-python
 scikit-image
 Wand
+termcolor
