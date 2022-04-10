@@ -4,12 +4,8 @@ This codebase is built upon the official code of "Towards Robust Vision Transfor
 
 # Usage
 
-Install PyTorch 1.7.0+ and torchvision 0.8.1+ and [pytorch-image-models 0.3.2](https://github.com/rwightman/pytorch-image-models):
+Install PyTorch 1.7.0+ and torchvision 0.8.1+ from the official website.
 
-```
-conda install -c pytorch pytorch torchvision
-pip install timm==0.3.2
-```
 `requirements.txt` lists all the dependencies:
 ```
 pip install -r requirements.txt
