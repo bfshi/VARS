@@ -191,7 +191,7 @@ def get_args_parser():
     parser.add_argument("--attention", default='self-att', type=str,
                         choices=['self-att', 'perf', 'vars_s', 'vars_d', 'vars_sd'],
                         help='which attention block to use')
-    parser.add_argument("--lam", default=2, type=float, help='strength of sparse regularization')
+    parser.add_argument("--lam", default=0.3, type=float, help='strength of sparse regularization')
     parser.add_argument("--rand_feat_dim_ratio", default=2, type=int,
                         help='decides the dimension of random feature in the approximation to self-att')
     parser.add_argument("--num_step", default=3, type=int,
