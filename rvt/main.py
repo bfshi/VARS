@@ -194,7 +194,7 @@ def get_args_parser():
     parser.add_argument("--lam", default=0.3, type=float, help='strength of sparse regularization')
     parser.add_argument("--rand_feat_dim_ratio", default=2, type=int,
                         help='decides the dimension of random feature in the approximation to self-att')
-    parser.add_argument("--num_step", default=3, type=int,
+    parser.add_argument("--num_step", default=5, type=int,
                         help='how many steps taken to optimize sparse reconstruction')
     return parser
 
