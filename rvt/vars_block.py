@@ -79,7 +79,7 @@ class batch_norm(nn.Module):
 
 
 def to_random_feature(x, m, proj):
-    x = F.normalize(x, dim=-1)
+    # x = F.normalize(x, dim=-1)
     x = torch.exp(x @ proj - x.norm(dim=-1, keepdim=True)**2 / 2) / m**0.5
 
     return x
