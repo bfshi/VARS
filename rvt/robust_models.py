@@ -122,7 +122,7 @@ class Transformer(nn.Module):
         embed_dim = base_dim * heads
         attention = None
         if config['attention'] == 'self-att':
-            attention = Attention
+            attention = Block
         elif config['attention'] == 'perf':
             attention = Performer_Block
         elif config['attention'] == 'vars_s':
