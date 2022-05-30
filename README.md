@@ -40,3 +40,14 @@ To enable robustness evaluation, please add one of `--inc_path /path/to/imagenet
 If you want to test the accuracy under adversarial attackers, please add `--fgsm_test` or `--pgd_test`.
 
 
+## Citation
+If you found this code helpful, feel free to cite our work: 
+
+```bibtext
+@article{shi2022visual,
+  title={Visual Attention Emerges from Recurrent Sparse Reconstruction},
+  author={Shi, Baifeng and Song, Yale and Joshi, Neel and Darrell, Trevor and Wang, Xin},
+  journal={arXiv preprint arXiv:2204.10962},
+  year={2022}
+}
+```
