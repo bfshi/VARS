@@ -41,7 +41,7 @@ If you want to test the accuracy under adversarial attackers, please add `--fgsm
 
 
 ## Citation
-If you found this code helpful, feel free to cite our work: 
+If you found this code helpful, please consider citing our work: 
 
 ```bibtext
 @article{shi2022visual,
