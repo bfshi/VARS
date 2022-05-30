@@ -1,6 +1,6 @@
 # Visual Attention Emerges from Recurrent Sparse Reconstruction (ICML 2022)
 
-### [Baifeng Shi](https://bfshi.github.io), [Yale Song](http://people.csail.mit.edu/yalesong/home/), [Neel Joshi](https://neelj.com/) [Trevor Darrell](https://people.eecs.berkeley.edu/~trevor/), [Xin Wang](https://xinw.ai/)
+### [Baifeng Shi](https://bfshi.github.io), [Yale Song](http://people.csail.mit.edu/yalesong/home/), [Neel Joshi](https://neelj.com/), [Trevor Darrell](https://people.eecs.berkeley.edu/~trevor/), [Xin Wang](https://xinw.ai/)
 
 <img src="VARS.png" alt="drawing" width="600"/>
 
