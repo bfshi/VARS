@@ -2,7 +2,7 @@
 
 ### [Baifeng Shi](https://bfshi.github.io), [Yale Song](http://people.csail.mit.edu/yalesong/home/), [Neel Joshi](https://neelj.com/) [Trevor Darrell](https://people.eecs.berkeley.edu/~trevor/), [Xin Wang](https://xinw.ai/)
 
-![DETReg](./VARS.png)
+<img src="VARS.png" alt="drawing" width="600"/>
 
 This codebase is built upon the official code of "[Towards Robust Vision Transformer](https://github.com/vtddggg/Robust-Vision-Transformer)".
 
