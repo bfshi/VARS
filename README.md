@@ -4,7 +4,8 @@
 
 <img src="VARS.png" alt="drawing" width="600"/>
 
-This codebase is built upon the official code of "[Towards Robust Vision Transformer](https://github.com/vtddggg/Robust-Vision-Transformer)".
+Codebase of our ICML'22 paper "[Visual Attention Emerges from Recurrent Sparse Reconstruction](https://arxiv.org/abs/2204.10962)".
+
 
 # Usage
 
@@ -39,6 +40,9 @@ To enable robustness evaluation, please add one of `--inc_path /path/to/imagenet
 
 If you want to test the accuracy under adversarial attackers, please add `--fgsm_test` or `--pgd_test`.
 
+## Links 
+
+This codebase is built upon the official code of "[Towards Robust Vision Transformer](https://github.com/vtddggg/Robust-Vision-Transformer)".
 
 ## Citation
 If you found this code helpful, please consider citing our work: 
