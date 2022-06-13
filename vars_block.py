@@ -149,16 +149,24 @@ class VARS_D(nn.Module):
         self.L = torch.nn.parameter.Parameter(torch.ones(self.num_heads) * 25, requires_grad=False)
         self.if_update_L = 0
         self.lam = config['lam']
+        self.learned_k = torch.nn.parameter.Parameter(torch.eye(self.rand_feat_dim, requires_grad=True))
+        self.learned_lam = torch.nn.parameter.Parameter(torch.ones(1, requires_grad=True))
+        self.learned_L = torch.nn.parameter.Parameter(torch.ones(1, requires_grad=True))
+        self.gelu = nn.GELU()
 
     def att_func(self, x, input, kk):
+        L = kk.norm(p=1, dim=-1).max(dim=-1)[0].detach()[..., None, None] + 1
         lam = self.lam
 
-        x = torch.sign(input) * self.relu(input.abs() - lam)
-        L = kk.norm(p=1, dim=-1).max(dim=-1)[0].detach()[..., None, None] + 1
+        lam_learned = self.learned_lam * self.lam
+        learned_L = L / self.learned_L
+        kk_learned = self.learned_k[None, None, ...] @ kk @ self.learned_k
+
+        x = torch.sign(input) * self.gelu(input.abs() - lam_learned)
 
         for k in range(config['num_step']):
-            x = x - (kk @ x - input) / L
-            x = torch.sign(x) * self.relu(x.abs() - lam / L)
+            x = x - (kk_learned @ x - input) / learned_L
+            x = torch.sign(x) * self.gelu(x.abs() - lam_learned / learned_L)
 
         return x, lam
 
@@ -217,16 +225,24 @@ class VARS_SD(nn.Module):
         self.L = torch.nn.parameter.Parameter(torch.ones(self.num_heads) * 25, requires_grad=False)
         self.if_update_L = 0
         self.lam = config['lam']
+        self.learned_k = torch.nn.parameter.Parameter(torch.eye(self.rand_feat_dim * 2, requires_grad=True))
+        self.learned_lam = torch.nn.parameter.Parameter(torch.ones(1, requires_grad=True))
+        self.learned_L = torch.nn.parameter.Parameter(torch.ones(1, requires_grad=True))
+        self.gelu = nn.GELU()
 
     def att_func(self, x, input, kk):
+        L = kk.norm(p=1, dim=-1).max(dim=-1)[0].detach()[..., None, None] + 1
         lam = self.lam
 
-        x = torch.sign(input) * self.relu(input.abs() - lam)
-        L = kk.norm(p=1, dim=-1).max(dim=-1)[0].detach()[..., None, None] + 1
+        lam_learned = self.learned_lam * self.lam
+        learned_L = L / self.learned_L
+        kk_learned = self.learned_k[None, None, ...] @ kk @ self.learned_k
+
+        x = torch.sign(input) * self.gelu(input.abs() - lam_learned)
 
         for k in range(config['num_step']):
-            x = x - (kk @ x - input) / L
-            x = torch.sign(x) * self.relu(x.abs() - lam / L)
+            x = x - (kk_learned @ x - input) / learned_L
+            x = torch.sign(x) * self.gelu(x.abs() - lam_learned / learned_L)
 
         return x, lam
 

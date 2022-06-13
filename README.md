@@ -28,6 +28,8 @@ Take RVT-Ti with VARS-D for an example. We use single node with 8 gpus for train
 python -m torch.distributed.launch --nproc_per_node=8 --master_port 12345  main.py --model rvt_tiny --data-path path/to/imagenet  --output_dir output/here  --num_workers 8 --batch-size 128 --attention vars_d
 ```
 
+We provide pretrained weights for [VARS-D](https://drive.google.com/file/d/1o7KeX78cys6eoIDx8YfmJ-6eecFk_-y2/view?usp=sharing) and [VARS-SD](https://drive.google.com/file/d/1k2xWQYlKvsuSLaMb1U1UDJdyBT6kpcB8/view?usp=sharing).
+
 To train models with different scales or different attention algorithms, please change the arguments `--model` and `--attention`. 
 
 ## Testing
